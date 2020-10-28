@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/lalamove/konfig"
-	config "github.com/micro/go-micro/config"
-	"github.com/micro/go-micro/config/source/memory"
+	config "github.com/micro/go-micro/v2/config"
+	"github.com/micro/go-micro/v2/config/source/memory"
 	"github.com/spf13/viper"
 )
 
@@ -63,7 +63,10 @@ func newGoConfig() config.Config {
 		memory.WithJSON(data),
 	)
 	// Create new config
-	conf := config.NewConfig()
+	conf, err := config.NewConfig()
+	if err != nil {
+		panic("Error when creating config: " + err.Error())
+	}
 	// Load file source
 	conf.Load(memorySource)
 
